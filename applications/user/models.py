@@ -1,5 +1,6 @@
 from tortoise import fields
 from tortoise.models import Model
+from passlib.hash import bcrypt
 
 
 class Permission(Model):
@@ -54,6 +55,12 @@ class User(Model):
         ).exists():
             return True
         return False
+    @classmethod
+    def hash_password(cls, password: str) -> str:
+        return bcrypt.hash(password)
+
+    def verify_password(self, password: str) -> bool:
+        return bcrypt.verify(password, self.password_hash)
 
 
 
