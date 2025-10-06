@@ -15,10 +15,10 @@ router.include_router(permission, tags=["Permission"])
 # ------------------------------------------------------------------------
 @router.post(
     "/users",
-    dependencies=[
-        Depends(login_required),
-        Depends(staff_required),  # ensures only staff/superuser can create
-    ]
+    # dependencies=[
+    #     Depends(login_required),
+    #     Depends(staff_required),  # ensures only staff/superuser can create
+    # ]
 )
 async def create_user(
     username: str = Form(..., description="Username"),
@@ -27,14 +27,14 @@ async def create_user(
     is_active: bool = Form(True),
     is_staff: bool = Form(False),
     is_superuser: bool = Form(False),
-    current_user: User = Depends(get_current_user),
+    # current_user: User = Depends(get_current_user),
 ):
     # --- PERMISSION LOGIC ---
-    if not current_user.is_superuser and is_superuser:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Staff users cannot create superusers."
-        )
+    # if not current_user.is_superuser and is_superuser:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_403_FORBIDDEN,
+    #         detail="Staff users cannot create superusers."
+    #     )
 
     # --- CHECK DUPLICATES ---
     if await User.filter(email=email).exists():
