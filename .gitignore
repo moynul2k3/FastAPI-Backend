@@ -1,7 +1,6 @@
 .vscode
 menv
 migration/models/*
-# uploads/*
 
 __pycache__/
 */__pycache__/
