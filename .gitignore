@@ -1,0 +1,6 @@
+.vscode
+menv
+migration/*
+
+__pycache__/
+*/__pycache__/
